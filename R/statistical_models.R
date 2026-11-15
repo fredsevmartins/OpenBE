@@ -15,37 +15,60 @@ validate_endpoints <- function(data, treatments = c("R", "T"),
   if (!is.data.frame(data) || !all(required %in% names(data)))
     stop("Required columns: ", paste(required, collapse = ", "))
   d <- data[required]
+  original <- d
   if (!nrow(d) || anyNA(d[1:4])) stop("Missing design information or empty data")
   if (!is.numeric(d$PK) || any(!is.finite(d$PK) & !is.na(d$PK)))
     stop("PK must be finite numeric values")
-  if (anyNA(d$PK)) {
-    if (missing == "error") stop("Missing PK; select missing='omit' explicitly")
-    warning(sum(is.na(d$PK)), " missing PK observations omitted; no imputation")
-    d <- d[!is.na(d$PK), ]
-  }
-  if (!nrow(d) || any(d$PK <= 0)) stop("PK endpoints must be positive")
-  if (any(!as.character(d$treatment) %in% treatments) ||
-      !all(treatments %in% as.character(d$treatment))) stop("Invalid treatment labels")
+  if (any(d$PK <= 0, na.rm = TRUE)) stop("PK endpoints must be positive")
+  if (any(!as.character(d$treatment) %in% treatments)) stop("Invalid treatment labels")
   p <- suppressWarnings(as.integer(as.character(d$period)))
   if (anyNA(p) || any(p < 1) || any(as.character(p) != as.character(d$period)))
     stop("Period must be a positive integer")
   if (anyDuplicated(d[c("subject", "period")])) stop("Duplicate subject-period record")
-  ns <- vapply(split(as.character(d$sequence), d$subject),
+  ns <- vapply(split(as.character(d$sequence), as.character(d$subject)),
                function(x) length(unique(x)), integer(1))
   if (any(ns != 1)) stop("A subject must belong to exactly one sequence")
-  # Parallel sequences are one-character treatment allocations as well.
   expected <- substring(as.character(d$sequence), p, p)
   if (any(expected != as.character(d$treatment))) stop("Treatment does not match sequence/period")
+  excluded <- which(is.na(d$PK))
+  if (length(excluded)) {
+    if (missing == "error") stop("Missing PK; select missing='omit' explicitly")
+    warning(length(excluded), " missing PK observations omitted; no imputation")
+    d <- d[-excluded, , drop = FALSE]
+    p <- p[-excluded]
+  }
+  if (!nrow(d) || !all(treatments %in% as.character(d$treatment))) stop("Invalid treatment labels after exclusions")
   d$subject <- factor(d$subject)
   d$sequence <- factor(d$sequence)
   d$period <- factor(p)
   d$treatment <- factor(d$treatment, levels = treatments)
+  subjects <- unique(original[c("subject", "sequence")])
+  planned <- do.call(rbind, lapply(seq_len(nrow(subjects)), function(i) {
+    data.frame(subject = as.character(subjects$subject[i]),
+      period = seq_len(nchar(as.character(subjects$sequence[i]))))
+  }))
+  key <- function(z) paste(z$subject, z$period, sep = "\r")
+  absent <- planned[!key(planned) %in% key(original), , drop = FALSE]
+  exclusions <- original[excluded, c("subject", "sequence", "period", "treatment"), drop = FALSE]
+  exclusions$source_row <- excluded
+  exclusions$reason <- rep("Missing PK; explicit omission", length(excluded))
+  attr(d, "OpenBE_population") <- list(input_rows = nrow(original), analyzed_rows = nrow(d),
+    input_subjects = length(unique(original$subject)), analyzed_subjects = nlevels(d$subject),
+    retained_source_rows = setdiff(seq_len(nrow(original)), excluded),
+    exclusions = exclusions, absent_records = absent, missing_policy = missing,
+    sequence_counts = as.data.frame(table(unique(d[c("subject", "sequence")])$sequence)),
+    input_sha256 = digest::digest(original, algo = "sha256", serializeVersion = 2))
   d
 }
 
-check_df <- function(model) {
+check_df <- function(model, estimable = FALSE) {
   if (!is.finite(stats::df.residual(model)) || stats::df.residual(model) <= 0)
     stop("Insufficient residual degrees of freedom")
+  if (estimable) {
+    x <- stats::model.matrix(model)
+    if (qr(x)$rank < ncol(x) || anyNA(stats::coef(model)))
+      stop("Nonestimable model: treatment or design effects are aliased; review missing periods and allocation")
+  }
 }
 
 # Internal scalar contrast summary on the natural ratio scale.
@@ -63,7 +86,10 @@ contrast_result <- function(estimate, se, df, alpha = 0.05) {
 fixed_model <- function(d) {
   # Unique subject factors absorb sequence; equivalent fitted space to
   # sequence + subject nested within sequence + period + treatment.
-  m <- stats::lm(log(PK) ~ subject + period + treatment, data = d)
-  check_df(m)
+  if (nlevels(d$subject) < 2 || nlevels(d$period) < 2)
+    stop("Nonestimable crossover model: at least two subjects and periods are required")
+  m <- stats::lm(log(PK) ~ subject + period + treatment, data = d,
+    contrasts = list(subject = "contr.treatment", period = "contr.treatment", treatment = "contr.treatment"))
+  check_df(m, estimable = TRUE)
   m
 }

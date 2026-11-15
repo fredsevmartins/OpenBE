@@ -12,6 +12,8 @@
 #' result$summary
 #' @export
 analyze_2x2 <- function(data) {
+  restore_session <- analysis_session()
+  on.exit(restore_session(), add = TRUE)
   d <- validate_endpoints(data)
   if (!setequal(levels(d$sequence), c("TR", "RT")) ||
       any(table(d$subject) != 2L)) stop("A complete TR/RT 2x2 crossover is required")
@@ -19,10 +21,11 @@ analyze_2x2 <- function(data) {
                   PRD = as.integer(as.character(d$period)),
                   TRT = as.character(d$treatment), endpoint = d$PK)
   b <- b[order(b$GRP, b$PRD, b$SUBJ), ]
-  raw <- BE::test2x2(b, "endpoint")
+  m <- fixed_model(d)
+  fit <- record_fit(BE::test2x2(b, "endpoint"))
+  raw <- fit$value
   if (is.null(raw)) stop("BE rejected the data")
   ci <- raw[["90% Confidence Interval of Geometric Mean Ratio (T/R)"]]
-  m <- fixed_model(d)
   coef <- summary(m)$coefficients["treatmentT", ]
   s <- contrast_result(coef[1], coef[2], stats::df.residual(m))
   # Preserve the primary engine's values rather than silently substituting.
@@ -31,5 +34,6 @@ analyze_2x2 <- function(data) {
   list(summary = s, engine = raw, model = m, data = d,
        anova = raw[[1]], geometric_lsmeans = raw[[3]],
        cv_within = raw[[2]][2, "Within Subject"]/100,
+       audit = analysis_audit(d, m, "BE", "Conventional 2x2", "Residual N-2", fit$warnings),
        regulatory = assess_regulatory(s), status = "TESTED_NOT_INDEPENDENTLY_VALIDATED")
 }

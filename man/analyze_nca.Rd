@@ -2,7 +2,7 @@
 % Please edit documentation in R/pk_nca.R
 \name{analyze_nca}
 \alias{analyze_nca}
-\title{Noncompartmental analysis with PKNCA}
+\title{Noncompartmental analysis with explicit data policies and an audit trail}
 \usage{
 analyze_nca(
   concentration,
@@ -11,26 +11,42 @@ analyze_nca(
   concentration_unit,
   time_unit,
   dose_unit,
-  options = list(auc.method = "lin up/log down")
+  options = list(auc.method = "lin up/log down"),
+  missing = c("error", "omit"),
+  blq_policy = c("engine", "error", "omit", "zero", "half_lloq"),
+  lloq = NULL,
+  target_units = NULL
 )
 }
 \arguments{
-\item{concentration}{Data frame with subject, time and concentration.}
+\item{concentration}{Data frame with subject, time, concentration and optional
+logical blq. Zero concentrations are also treated as BLQ.}
 
-\item{dose}{Data frame with subject, time and dose, with positive doses.}
+\item{dose}{Data frame with subject, time and positive dose.}
 
-\item{intervals}{PKNCA interval specification with start, end and parameter flags.}
+\item{intervals}{PKNCA interval specification in input time units.}
 
-\item{concentration_unit, time_unit, dose_unit}{Nonempty unit labels.}
+\item{concentration_unit, time_unit, dose_unit}{Recognized input unit labels.}
 
-\item{options}{Named options for PKNCAdata (for example auc.method).}
+\item{options}{Named PKNCA options. Defaults are recorded in the audit.}
+
+\item{missing}{Either "error" or explicit "omit" for missing concentrations.}
+
+\item{blq_policy}{"engine" applies recorded PKNCA zero/BLQ rules; "error",
+"omit", "zero" (keep all zero values), or "half_lloq" are explicit alternatives.}
+
+\item{lloq}{Positive assay limit in input concentration units, required for
+half_lloq. No assay limit is inferred from measured values.}
+
+\item{target_units}{Optional named list with concentration, time and/or dose
+labels. Intervals are converted with time; other time-valued options must
+already use target units. Dose mg/kg cannot be converted to mg without weight.}
 }
 \value{
-PKNCAresults object with unit labels attached as metadata.
+PKNCAresults with OpenBE_units and OpenBE_audit attributes.
 }
 \description{
-Explicit interval selection and options are required. Zeros are BLQ under
-PKNCA's rules; negative concentrations, duplicate times, missing observations
-and undeclared units are rejected here. A validated study-specific BLQ/missing
-policy must be applied upstream. No endpoint data are turned into profiles.
+Uses PKNCA; no observed profiles are fabricated from endpoint data. Unit
+conversions cover declared mass/volume/time units and preserve dose dimension.
+Terminal-point membership is obtained from PKNCA, not a replacement slope fit.
 }

@@ -9,6 +9,8 @@
 #' @return Mixed model, unadjusted contrasts, geometric marginal means and status.
 #' @export
 analyze_williams <- function(data) {
+  restore_session <- analysis_session()
+  on.exit(restore_session(), add = TRUE)
   tr <- sort(unique(as.character(data$treatment)))
   if (!"R" %in% tr || !length(tr) %in% c(3L,4L)) stop("Expected three or four treatments including R")
   d <- validate_endpoints(data, treatments = c("R", setdiff(tr, "R")))
@@ -16,8 +18,9 @@ analyze_williams <- function(data) {
     c("ABCR","BRAC","RCBA","CARB")
   if (!setequal(levels(d$sequence), seqs) || any(table(d$subject) != length(tr)))
     stop("Expected a complete balanced Williams sequence structure")
-  m <- nlme::lme(log(PK) ~ sequence + period + treatment, random = ~1|subject,
-                 data = d, method = "REML", na.action = stats::na.fail)
+  fit <- record_fit(nlme::lme(log(PK) ~ sequence + period + treatment, random = ~1|subject,
+                 data = d, method = "REML", na.action = stats::na.fail))
+  m <- fit$value
   em <- emmeans::emmeans(m, ~treatment)
   ctr <- emmeans::contrast(em, "trt.vs.ctrl", ref = 1, adjust = "none")
   cs <- as.data.frame(summary(ctr))
@@ -28,5 +31,7 @@ analyze_williams <- function(data) {
   s$abe_numeric <- numeric_abe(s$lower, s$upper)
   means <- as.data.frame(em); means$geometric_mean <- exp(means$emmean)
   list(summary = s, model = m, data = d, geometric_lsmeans = means,
+       audit = analysis_audit(d, m, c("nlme", "emmeans"), "Williams random-intercept",
+         "Containment; unadjusted intervals, separate Holm TOST", fit$warnings),
        regulatory = assess_regulatory(s), status = "EXPERIMENTAL")
 }

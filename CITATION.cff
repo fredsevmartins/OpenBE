@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "Please cite OpenBE and the statistical engines used in your analysis."
 title: "OpenBE: Open-Source Bioequivalence Analysis"
 type: software
-version: 0.1.0
+version: 0.1.1
 license: AGPL-3.0-only
 authors:
   - family-names: Martins

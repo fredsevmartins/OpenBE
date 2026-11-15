@@ -25,23 +25,6 @@ abel_limits <- function(cv_wr) {
   exp(c(lower = -1, upper = 1) * 0.760 * sqrt(log1p(min(cv_wr, 0.5)^2)))
 }
 
-#' Separate regulatory applicability from statistical calculations
-#'
-#' No currently effective jurisdiction-specific policy has been qualified for
-#' this release. Always returns undetermined, retaining the supplied context
-#' and reason. Use numeric_abe() and abel_limits() for transparent calculations.
-#' @param statistics Statistical summary retained for traceability.
-#' @param guideline Guideline source and version, if supplied.
-#' @param endpoint Endpoint name, if known.
-#' @return A list with classification, guideline, endpoint and reason.
-#' @export
-assess_regulatory <- function(statistics, guideline = NA_character_, endpoint = NA_character_) {
-  list(classification = "REGULATORY_ASSESSMENT_NOT_DETERMINED",
-       guideline = guideline, endpoint = endpoint,
-       reason = "Current rule applicability and endpoint eligibility are not qualified in this release",
-       statistics = statistics)
-}
-
 #' Numerical historical ABEL calculation with the GMR constraint
 #' @param lower,upper Single ratio confidence limits.
 #' @param gmr Single Test/Reference ratio, contained within its confidence limits.
