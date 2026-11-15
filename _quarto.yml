@@ -44,6 +44,7 @@ project:
     - "docs/technical/ENVIRONMENT_READINESS.md"
     - "docs/technical/IMPLEMENTATION_REPORT.md"
     - "docs/technical/PUBLISHING_STATUS.md"
+    - "docs/technical/PULL_REQUEST.md"
     - "index.qmd"
 website:
   title: "OpenBE"
