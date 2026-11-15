@@ -1,0 +1,50 @@
+[
+  {
+    "package": "sasLM",
+    "repository": "https://github.com/cran/sasLM",
+    "commit": "8d37a619b9d766a6d7c5f19a6beb50bb81dcc017",
+    "version": "1.0.1"
+  },
+  {
+    "package": "rtf",
+    "repository": "https://github.com/cran/rtf",
+    "commit": "85f7cc23cc0cbfc69a122d1207057417bd4e90ee",
+    "version": "0.4-15"
+  },
+  {
+    "package": "BE",
+    "repository": "https://github.com/cran/BE",
+    "commit": "46266f50bdadc004a1a3cd01be12bc0310af1c5d",
+    "version": "0.3.0"
+  },
+  {
+    "package": "PowerTOST",
+    "repository": "https://github.com/cran/PowerTOST",
+    "commit": "18b91c4636d6de6f6dba737c40a23bc0ec257e2d",
+    "version": "1.5-7"
+  },
+  {
+    "package": "replicateBE",
+    "repository": "https://github.com/cran/replicateBE",
+    "commit": "85c3d9102c3ff1bc07c5814b5f712466ffe2a978",
+    "version": "1.1.3"
+  },
+  {
+    "package": "PKNCA",
+    "repository": "https://github.com/cran/PKNCA",
+    "commit": "72b3b14fa5d78dc59ee1e4c86d55a304fed723db",
+    "version": "0.12.1"
+  },
+  {
+    "package": "renv",
+    "repository": "https://github.com/cran/renv",
+    "commit": "b7ea70a8744eb789a57f9d0b5b8645842b0aef42",
+    "version": "1.3.1"
+  },
+  {
+    "package": "quarto",
+    "repository": "https://github.com/cran/quarto",
+    "commit": "28e2b96daa26dcfd6401431f62ede3aa0d169387",
+    "version": "1.5.1"
+  }
+]

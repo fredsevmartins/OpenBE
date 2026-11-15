@@ -1,0 +1,15 @@
+id,directory,title,sequences,periods,engine,provenance,endpoint
+1,design_01_2x2_crossover,Design 01: 2x2 crossover,TR | RT,2,BE,BE::NCAResult4BE; package-simulated endpoint data,AUClast/Cmax
+2,design_02_full_replicate_TRTR_RTRT,Design 02: full replicate TRTR RTRT,TRTR | RTRT,4,replicateBE,replicateBE::rds01; EMA Annex II reference endpoint data,Cmax
+3,design_03_full_replicate_TRRT_RTTR,Design 03: full replicate TRRT RTTR,TRRT | RTTR,4,replicateBE,replicateBE::rds05; published phenytoin endpoint data,Cmax
+4,design_04_full_replicate_TTRR_RRTT,Design 04: full replicate TTRR RRTT,TTRR | RRTT,4,replicateBE,replicateBE::rds28; package-simulated data,Cmax
+5,design_05_four_sequence_replicate,Design 05: four sequence replicate,TRTR | RTRT | TRRT | RTTR,4,replicateBE,replicateBE::rds23; FDA public-domain endpoint data,Cmax
+6,design_06_alternative_four_sequence_replicate,Design 06: alternative four sequence replicate,TRRT | RTTR | TTRR | RRTT,4,replicateBE,replicateBE::rds24; FDA public-domain endpoint data,Cmax
+7,design_07_three_period_full_replicate,Design 07: three period full replicate,TRT | RTR,3,replicateBE,replicateBE::rds03; EMA rds01 edited by package (period 4 removed),Cmax
+8,design_08_alternative_three_period_replicate,Design 08: alternative three period replicate,TRR | RTT,3,replicateBE,replicateBE::rds10; published Chow & Liu AUC data,AUC
+9,design_09_balaam,Design 09: balaam,TR | RT | TT | RR,2,replicateBE,replicateBE::rds27; package-simulated data,Cmax
+10,design_10_partial_replicate,Design 10: partial replicate,TRR | RTR | RRT,3,replicateBE,replicateBE::rds02; EMA Annex III endpoint data,Cmax
+11,design_11_extra_reference,Design 11: extra reference,TRR | RTR,3,replicateBE,replicateBE::rds22; package-simulated data,Cmax
+12,design_12_parallel,Design 12: parallel,T | R,1,stats::lm (OpenBE),OpenBE synthetic; seed 12012,illustrative_endpoint
+13,design_13_williams_three_treatments,Design 13: williams three treatments,ABR | BRA | RAB | RBA | ARB | BAR,3,nlme + emmeans (OpenBE),OpenBE synthetic; seed 13013,illustrative_endpoint
+14,design_14_williams_four_treatments,Design 14: williams four treatments,ABCR | BRAC | RCBA | CARB,4,nlme + emmeans (OpenBE),OpenBE synthetic; seed 14014,illustrative_endpoint

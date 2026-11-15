@@ -1,0 +1,5 @@
+bibentry(bibtype = "Manual",
+  title = "OpenBE: Open-Source Bioequivalence Analysis",
+  author = person("Frederico", "Martins"),
+  year = "2026", note = "R package version 0.1.0",
+  url = "https://github.com/fredsevmartins/OpenBE")
