@@ -1,0 +1,14 @@
+.Rhistory
+.RData
+.Rproj.user/
+.Renviron
+.Rprofile
+renv/library/
+renv/staging/
+renv/cache/
+*.Rcheck/
+*.tar.gz
+_site/
+.quarto/
+**/.quarto/
+**/*_files/
