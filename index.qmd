@@ -1,0 +1,9 @@
+---
+title: "OpenBE — Open-Source Bioequivalence Analysis"
+---
+
+Reproducible bioequivalence research in R.
+
+Start with [Getting Started](docs/getting-started.md), [Study Designs](docs/study-designs.md), and [Scientific Validation](docs/validation/VALIDATION_REPORT.md).
+
+Research workflows are not regulatory certification. See [Regulatory Framework](docs/regulatory-framework.md).

@@ -1,0 +1,90 @@
+project:
+  type: website
+  output-dir: _site
+  execute-dir: project
+  resources:
+    - "examples/**/outputs/**/*.png"
+    - "inst/extdata/*.md"
+    - "inst/extdata/*.json"
+    - "examples/**/outputs/**/*.pdf"
+    - "docs/validation/*.rds"
+    - "docs/technical/*.csv"
+    - "docs/technical/*.json"
+    - "docs/technical/*.txt"
+    - "docs/validation/*.csv"
+    - "docs/validation/*.txt"
+  render:
+    - "docs/api-reference.md"
+    - "docs/conventional-bioequivalence.md"
+    - "docs/getting-started.md"
+    - "docs/index.md"
+    - "docs/references.md"
+    - "docs/regulatory-framework.md"
+    - "docs/replicate-bioequivalence.md"
+    - "docs/statistical-methods.md"
+    - "docs/study-designs.md"
+    - "docs/technical/PACKAGE_CAPABILITIES.md"
+    - "docs/validation/VALIDATION_REPORT.md"
+    - "docs/tutorials/design_01_2x2_crossover.qmd"
+    - "docs/tutorials/design_02_full_replicate_TRTR_RTRT.qmd"
+    - "docs/tutorials/design_03_full_replicate_TRRT_RTTR.qmd"
+    - "docs/tutorials/design_04_full_replicate_TTRR_RRTT.qmd"
+    - "docs/tutorials/design_05_four_sequence_replicate.qmd"
+    - "docs/tutorials/design_06_alternative_four_sequence_replicate.qmd"
+    - "docs/tutorials/design_07_three_period_full_replicate.qmd"
+    - "docs/tutorials/design_08_alternative_three_period_replicate.qmd"
+    - "docs/tutorials/design_09_balaam.qmd"
+    - "docs/tutorials/design_10_partial_replicate.qmd"
+    - "docs/tutorials/design_11_extra_reference.qmd"
+    - "docs/tutorials/design_12_parallel.qmd"
+    - "docs/tutorials/design_13_williams_three_treatments.qmd"
+    - "docs/tutorials/design_14_williams_four_treatments.qmd"
+    - "docs/tutorials/pharmacokinetic_analysis.qmd"
+    - "docs/tutorials/sample_size_and_power.qmd"
+    - "docs/technical/ENVIRONMENT_READINESS.md"
+    - "docs/technical/IMPLEMENTATION_REPORT.md"
+    - "docs/technical/PUBLISHING_STATUS.md"
+    - "index.qmd"
+website:
+  title: "OpenBE"
+  repo-url: https://github.com/fredsevmartins/OpenBE
+  sidebar:
+    style: docked
+    contents:
+      - docs/getting-started.md
+      - docs/study-designs.md
+      - docs/conventional-bioequivalence.md
+      - docs/replicate-bioequivalence.md
+      - docs/statistical-methods.md
+      - docs/tutorials/pharmacokinetic_analysis.qmd
+      - docs/tutorials/sample_size_and_power.qmd
+      - docs/regulatory-framework.md
+      - docs/validation/VALIDATION_REPORT.md
+      - docs/technical/PACKAGE_CAPABILITIES.md
+      - section: "Design tutorials"
+        contents:
+          - docs/tutorials/design_01_2x2_crossover.qmd
+          - docs/tutorials/design_02_full_replicate_TRTR_RTRT.qmd
+          - docs/tutorials/design_03_full_replicate_TRRT_RTTR.qmd
+          - docs/tutorials/design_04_full_replicate_TTRR_RRTT.qmd
+          - docs/tutorials/design_05_four_sequence_replicate.qmd
+          - docs/tutorials/design_06_alternative_four_sequence_replicate.qmd
+          - docs/tutorials/design_07_three_period_full_replicate.qmd
+          - docs/tutorials/design_08_alternative_three_period_replicate.qmd
+          - docs/tutorials/design_09_balaam.qmd
+          - docs/tutorials/design_10_partial_replicate.qmd
+          - docs/tutorials/design_11_extra_reference.qmd
+          - docs/tutorials/design_12_parallel.qmd
+          - docs/tutorials/design_13_williams_three_treatments.qmd
+          - docs/tutorials/design_14_williams_four_treatments.qmd
+      - docs/api-reference.md
+      - docs/references.md
+format:
+  html:
+    theme: cosmo
+    toc: true
+    html-math-method: mathml
+execute:
+  error: false
+  warning: true
+  freeze: false

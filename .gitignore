@@ -12,3 +12,7 @@ _site/
 .quarto/
 **/.quarto/
 **/*_files/
+
+/.quarto/
+**/*.quarto_ipynb
+site_libs/

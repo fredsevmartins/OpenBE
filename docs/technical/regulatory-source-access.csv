@@ -1,0 +1,5 @@
+source,url,access_checked_utc,curl_exit,http_status,observation
+CRAN,https://cran.r-project.org/web/packages/BE/index.html,2026-11-15T20:52:42.298057+00:00,56,000,CONNECT HTTP 403 (restricted network)
+EMA M13A,https://www.ema.europa.eu/en/ich-m13a-bioequivalence-immediate-release-solid-oral-dosage-forms-scientific-guideline,2026-11-15T20:52:42.312641+00:00,56,000,CONNECT HTTP 403 (restricted network)
+ICH,https://database.ich.org/,2026-11-15T20:52:42.330002+00:00,56,000,CONNECT HTTP 403 (restricted network)
+FDA,https://www.fda.gov/drugs/guidances-drugs,2026-11-15T20:52:42.343474+00:00,56,000,CONNECT HTTP 403 (restricted network)

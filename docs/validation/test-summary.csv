@@ -1,0 +1,14 @@
+"file","test","nb","failed","skipped","error","warning","passed"
+"test-additional.R","parallel analysis agrees with independent pooled t algebra",6,0,FALSE,FALSE,0,6
+"test-additional.R","balanced Williams contrasts agree with projected normal equations",14,0,FALSE,FALSE,0,14
+"test-conventional.R","BE AUClast and Cmax agree with independent stratified differences",20,0,FALSE,FALSE,0,20
+"test-conventional.R","sequence imbalance remains estimable and row ordering is irrelevant",2,0,FALSE,FALSE,0,2
+"test-conventional.R","invalid or incomplete conventional input is rejected",8,0,FALSE,FALSE,0,8
+"test-nca-planning.R","PKNCA recovers an analytical exponential profile",8,0,FALSE,FALSE,0,8
+"test-nca-planning.R","a declared repeat-dose interval integrates over tau",1,0,FALSE,FALSE,0,1
+"test-nca-planning.R","planning reproduces the documented conventional example and fixed RNG",7,0,FALSE,FALSE,0,7
+"test-regulatory.R","boundary logic uses exact, unrounded inclusive intervals",15,0,FALSE,FALSE,0,15
+"test-replicate.R","all ten replicate designs agree with independent fixed-effect calculations",60,0,FALSE,FALSE,0,60
+"test-replicate.R","EMA rds01 rounded reference example is reproduced by Method B",5,0,FALSE,FALSE,0,5
+"test-replicate.R","Method B backend and DF options match explicitly fitted models",6,0,FALSE,FALSE,0,6
+"test-replicate.R","missingness, nonestimability and invalid designs are explicit",6,0,FALSE,FALSE,0,6
