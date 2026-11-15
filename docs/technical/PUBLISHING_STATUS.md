@@ -1,7 +1,8 @@
 # Publication status
 
 The complete scientific implementation is published on the default `main`
-branch of https://github.com/fredsevmartins/OpenBE. It includes the R package,
+branch of https://github.com/fredsevmartins/OpenBE. Version 0.1.1 adds the
+[scientific hardening improvements](HARDENING_0.1.1.md). It includes the R package,
 source datasets, 14 design examples, results, figures, documentation, tests and
 GitHub Actions workflows. Installation instructions use `main`.
 

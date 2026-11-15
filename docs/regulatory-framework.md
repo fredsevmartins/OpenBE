@@ -4,8 +4,12 @@ OpenBE separates (1) statistical output, (2) rule selection, (3) eligibility,
 (4) acceptance limits and (5) classification. The current release implements
 statistics and transparent numerical conventional/legacy expanded limits.
 It deliberately does **not** qualify a currently effective regulatory policy.
-`assess_regulatory()` returns `REGULATORY_ASSESSMENT_NOT_DETERMINED` with a reason
-and any supplied guideline/endpoint metadata. Engine-produced pass/fail text is
+`regulatory_rules()` records version, source, effective-date and qualification
+metadata. Every shipped rule remains unqualified, so default
+`assess_regulatory()` calls return `REGULATORY_ASSESSMENT_NOT_DETERMINED`.
+Custom registers are explicit caller attestations; they require source hashes,
+verification dates, an effective window and endpoint/study eligibility before
+numerical classification. Synthetic test registers are not official guidance. Engine-produced pass/fail text is
 archived as historical engine output, not endorsed as a submission conclusion.
 
 ## Source-verification register
@@ -49,3 +53,12 @@ therapeutic index, highly variable drugs, modified release, and multiple-dose
 studies require specific consideration. The 2022 engine's historical decisions
 cannot substitute for that audit. No software approval or regulatory endorsement
 is claimed.
+
+## Executable source-access and qualification audit
+
+Run `Rscript scripts/audit_regulatory_sources.R` to record access outcomes and
+hash any successfully retrieved source. Retrieval does not establish content,
+version, scope or current applicability. The latest outcomes are in
+[the source-access register](regulatory/source-access.csv). Five-stage gates,
+caller-attestation limits and safe abstention are documented in the
+[0.1.1 technical report](technical/HARDENING_0.1.1.md).

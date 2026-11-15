@@ -1,13 +1,39 @@
 name: R CMD check
 on:
   push:
-    branches: [main, codex/initial-scientific-implementation]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
   check:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-latest, r: '4.5.0'}
+          - {os: windows-latest, r: '4.5.0'}
+          - {os: macos-latest, r: '4.5.0'}
+          - {os: ubuntu-latest, r: 'release'}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.r }}
+          use-public-rspm: true
+      - name: Linux system requirements
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff-dev libjpeg-dev
+      - uses: r-lib/actions/setup-renv@v2
+      - run: Rscript scripts/check_package.R
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: R-CMD-check-${{ matrix.os }}-${{ matrix.r }}
+          path: OpenBE.Rcheck
+  clean-restore:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,11 +43,12 @@ jobs:
           use-public-rspm: true
       - name: System requirements
         run: sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff-dev libjpeg-dev
-      - uses: r-lib/actions/setup-renv@v2
-      - run: R CMD build .
-      - run: R CMD check --no-manual OpenBE_0.1.0.tar.gz
+      - name: Install restore runner
+        run: Rscript -e 'install.packages("renv")'
+      - name: Restore an empty library and verify exact versions
+        run: Rscript scripts/verify_clean_restore.R
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: R-CMD-check
-          path: OpenBE.Rcheck
+          name: clean-restore-session
+          path: clean-restore-session.txt

@@ -4,11 +4,27 @@
 "test-conventional.R","BE AUClast and Cmax agree with independent stratified differences",20,0,FALSE,FALSE,0,20
 "test-conventional.R","sequence imbalance remains estimable and row ordering is irrelevant",2,0,FALSE,FALSE,0,2
 "test-conventional.R","invalid or incomplete conventional input is rejected",8,0,FALSE,FALSE,0,8
+"test-independent-reml.R","Method B containment estimates match independent profile REML",40,0,FALSE,FALSE,0,40
+"test-independent-reml.R","Satterthwaite agrees with independent observed-information delta method",9,0,FALSE,FALSE,0,9
+"test-independent-reml.R","balanced complete Kenward-Roger reduces to the exact within-subject case",5,0,FALSE,FALSE,0,5
+"test-nca-audit.R","NCA unit conversions preserve physical exposure and terminal estimates",4,0,FALSE,FALSE,0,4
+"test-nca-audit.R","NCA records actual engine terminal windows and exports its audit",5,0,FALSE,FALSE,0,5
+"test-nca-audit.R","overlapping intervals retain separate terminal membership",2,0,FALSE,FALSE,0,2
+"test-nca-audit.R","BLQ and missing-value decisions are explicit and traceable",7,0,FALSE,FALSE,0,7
 "test-nca-planning.R","PKNCA recovers an analytical exponential profile",8,0,FALSE,FALSE,0,8
 "test-nca-planning.R","a declared repeat-dose interval integrates over tau",1,0,FALSE,FALSE,0,1
 "test-nca-planning.R","planning reproduces the documented conventional example and fixed RNG",7,0,FALSE,FALSE,0,7
+"test-regulatory-registry.R","all built-in rules abstain until verified and qualified",9,0,FALSE,FALSE,0,9
+"test-regulatory-registry.R","a caller-attested fixture follows all five assessment stages",5,0,FALSE,FALSE,0,5
+"test-regulatory-registry.R","ABEL cannot be applied to AUC or an unqualified replicate estimate",3,0,FALSE,FALSE,0,3
 "test-regulatory.R","boundary logic uses exact, unrounded inclusive intervals",15,0,FALSE,FALSE,0,15
 "test-replicate.R","all ten replicate designs agree with independent fixed-effect calculations",60,0,FALSE,FALSE,0,60
 "test-replicate.R","EMA rds01 rounded reference example is reproduced by Method B",5,0,FALSE,FALSE,0,5
 "test-replicate.R","Method B backend and DF options match explicitly fitted models",6,0,FALSE,FALSE,0,6
 "test-replicate.R","missingness, nonestimability and invalid designs are explicit",6,0,FALSE,FALSE,0,6
+"test-session-estimability.R","analysis estimates do not depend on the caller's contrast options",4,0,FALSE,FALSE,0,4
+"test-session-estimability.R","all session options are restored after success and errors",3,0,FALSE,FALSE,0,3
+"test-session-estimability.R","positive residual DF cannot hide a nonestimable treatment contrast",1,0,FALSE,FALSE,0,1
+"test-session-estimability.R","omission cannot hide inconsistent study allocation",1,0,FALSE,FALSE,0,1
+"test-session-estimability.R","a truncated crossover cannot be silently analyzed as parallel groups",1,0,FALSE,FALSE,0,1
+"test-session-estimability.R","population, provenance and missingness are traceable",10,0,FALSE,FALSE,0,10

@@ -5,9 +5,18 @@ established statistical engines, provides executable design examples, and
 separates statistical calculations from regulatory eligibility and conclusions.
 
 This release contains **14 executed design workflows**, observed-data NCA,
-sample-size/power examples, **158 passing test expectations**, **84 numerical
+sample-size/power examples, **267 passing test expectations**, **136 numerical
 comparisons**, **95 figures in PNG (300 dpi) plus 95 vector PDFs**, and **16
 executable English tutorials**. No Shiny interface is included.
+
+## Version 0.1.1 improvements
+
+Session-safe contrasts, early estimability checks, independent REML/DF checks,
+population/model audit reports, explicit NCA policies and unit conversions,
+terminal-point exports, versioned regulatory qualification gates and a
+cross-platform CI matrix are described in the
+[0.1.1 technical report](docs/technical/HARDENING_0.1.1.md).
+No built-in regulatory rule is qualified; custom registers are caller attestations.
 
 ## Features
 
@@ -106,7 +115,7 @@ Rscript scripts/run_validation.R
 Rscript scripts/run_nca.R
 Rscript scripts/run_planning.R
 R CMD build .
-R CMD check --no-manual OpenBE_0.1.0.tar.gz
+R CMD check --no-manual OpenBE_0.1.1.tar.gz
 Rscript scripts/build_documentation.R
 ```
 
@@ -136,16 +145,17 @@ See [models and assumptions](docs/statistical-methods.md) and the
 
 Numerical ABE/legacy ABEL calculations do not establish regulatory eligibility.
 Official-source retrieval was blocked by HTTP 403 in this environment, so
-current ICH M13A/EMA/FDA applicability is **not qualified**. Every OpenBE
-regulatory assessment returns `REGULATORY_ASSESSMENT_NOT_DETERMINED`. No AUC
+current ICH M13A/EMA/FDA applicability is **not qualified**. All shipped rules are unqualified; default assessments return
+`REGULATORY_ASSESSMENT_NOT_DETERMINED`. The versioned registry and explicit
+qualification gates are documented in the technical report. No AUC
 scaling eligibility, FDA RSABE implementation, NTI procedure, regulatory approval
 or endorsement is claimed. See the [regulatory framework](docs/regulatory-framework.md).
 
 ## Validation
 
 Local `R CMD check --no-manual` passed with **Status: OK**. The test suite passed
-158 expectations across 13 test blocks, with no failures, errors or skips;
-84 recorded expected/observed comparisons passed explicit absolute tolerances.
+267 expectations across 29 test blocks, with no failures, errors or skips;
+136 recorded expected/observed comparisons passed explicit absolute tolerances.
 These include independent stratified-difference and normal-equation checks,
 rounded EMA reference-example corroboration, analytical exponential NCA,
 input/boundary tests, DF options, Williams balance and reproducible planning.

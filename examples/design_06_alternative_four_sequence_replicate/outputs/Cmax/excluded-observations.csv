@@ -1,0 +1,5 @@
+"subject","sequence","period","treatment","source_row","reason"
+16,"TRRT",1,"T",53,"Missing PK; explicit omission"
+16,"TRRT",2,"R",54,"Missing PK; explicit omission"
+16,"TRRT",3,"R",55,"Missing PK; explicit omission"
+16,"TRRT",4,"T",56,"Missing PK; explicit omission"

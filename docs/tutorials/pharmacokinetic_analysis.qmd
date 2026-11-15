@@ -15,9 +15,11 @@ measured concentration-time profiles.
 
 ## Methods and data handling
 
-The wrapper requires explicit intervals, units and positive doses. It rejects
+The wrapper requires explicit intervals, units and positive doses. By default it rejects
 negative concentrations, duplicate subject-time records, missing or nonfinite
 observations and unequal subject coverage between dose and concentration data.
+Version 0.1.1 also permits explicit missing-concentration omission and declared
+BLQ policies, preserving every action by source row in the audit.
 Study-specific missing/BLQ handling belongs in a prespecified upstream policy.
 Zero concentrations are BLQ under PKNCA's explicit default policy: first and
 last BLQ are kept, middle BLQ dropped. This default is recorded, not endorsed
@@ -101,3 +103,24 @@ sessionInfo()
 - Boeckmann AJ, Sheiner LB, Beal SL. NONMEM Users Guide, Part V. 1994.
 - [Dataset provenance](../../inst/extdata/PROVENANCE.md) and
   [validation report](../validation/VALIDATION_REPORT.md).
+
+## NCA audit and explicit policies (0.1.1)
+
+The engine's actual terminal windows and positive regression points are exported
+by `write_nca()`, together with fit quality, span ratio, exclusion reasons,
+effective options and source-data SHA-256. A report does not override a failed
+or nonestimable terminal phase.
+
+```{r}
+audit <- attr(nca, "OpenBE_audit")
+head(audit$terminal_points)
+head(audit$observation_actions)
+audit$output_units
+```
+
+`blq_policy="half_lloq"` requires the actual positive assay limit, in input
+concentration units. This is an available prespecified policy, not a default
+recommendation. No assay limit is invented for Theoph. Recognized dimension-safe
+conversions are available via `target_units`; unknown labels and a conversion
+between mg/kg and mg without body weight are rejected. Detailed rules and
+limitations: [0.1.1 report](../technical/HARDENING_0.1.1.md).

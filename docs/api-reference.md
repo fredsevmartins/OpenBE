@@ -17,7 +17,7 @@ Description:
 Usage:
 
      abel_limits(cv_wr)
-     
+
 Arguments:
 
    cv_wr: Single reference within-subject CV as a fraction.
@@ -44,7 +44,7 @@ Description:
 Usage:
 
      analyze_2x2(data)
-     
+
 Arguments:
 
     data: Endpoint data accepted by validate_endpoints().
@@ -59,21 +59,21 @@ Examples:
 
      result <- analyze_2x2(example_dataset(1, "AUClast"))
      result$summary
-     
+
 ```
 
 ## analyze_nca
 
 ```text
-Noncompartmental analysis with PKNCA
+Noncompartmental analysis with explicit data policies and an audit
+trail
 
 Description:
 
-     Explicit interval selection and options are required. Zeros are
-     BLQ under PKNCA's rules; negative concentrations, duplicate times,
-     missing observations and undeclared units are rejected here. A
-     validated study-specific BLQ/missing policy must be applied
-     upstream. No endpoint data are turned into profiles.
+     Uses PKNCA; no observed profiles are fabricated from endpoint
+     data. Unit conversions cover declared mass/volume/time units and
+     preserve dose dimension. Terminal-point membership is obtained
+     from PKNCA, not a replacement slope fit.
 
 Usage:
 
@@ -84,25 +84,45 @@ Usage:
        concentration_unit,
        time_unit,
        dose_unit,
-       options = list(auc.method = "lin up/log down")
+       options = list(auc.method = "lin up/log down"),
+       missing = c("error", "omit"),
+       blq_policy = c("engine", "error", "omit", "zero", "half_lloq"),
+       lloq = NULL,
+       target_units = NULL
      )
-     
+
 Arguments:
 
-concentration: Data frame with subject, time and concentration.
+concentration: Data frame with subject, time, concentration and
+          optional logical blq. Zero concentrations are also treated as
+          BLQ.
 
-    dose: Data frame with subject, time and dose, with positive doses.
+    dose: Data frame with subject, time and positive dose.
 
-intervals: PKNCA interval specification with start, end and parameter
-          flags.
+intervals: PKNCA interval specification in input time units.
 
-concentration_unit, time_unit, dose_unit: Nonempty unit labels.
+concentration_unit, time_unit, dose_unit: Recognized input unit labels.
 
- options: Named options for PKNCAdata (for example auc.method).
+ options: Named PKNCA options. Defaults are recorded in the audit.
+
+ missing: Either "error" or explicit "omit" for missing concentrations.
+
+blq_policy: "engine" applies recorded PKNCA zero/BLQ rules; "error",
+          "omit", "zero" (keep all zero values), or "half_lloq" are
+          explicit alternatives.
+
+    lloq: Positive assay limit in input concentration units, required
+          for half_lloq. No assay limit is inferred from measured
+          values.
+
+target_units: Optional named list with concentration, time and/or dose
+          labels. Intervals are converted with time; other time-valued
+          options must already use target units. Dose mg/kg cannot be
+          converted to mg without weight.
 
 Value:
 
-     PKNCAresults object with unit labels attached as metadata.
+     PKNCAresults with OpenBE_units and OpenBE_audit attributes.
 
 ```
 
@@ -119,7 +139,7 @@ Description:
 Usage:
 
      analyze_parallel(data)
-     
+
 Arguments:
 
     data: Endpoint data; one period and one observation per subject.
@@ -147,7 +167,7 @@ Description:
 Usage:
 
      analyze_replicate(data, missing = c("error", "omit"), option = 2)
-     
+
 Arguments:
 
     data: Endpoint-level replicate study data.
@@ -182,7 +202,7 @@ Description:
 Usage:
 
      analyze_williams(data)
-     
+
 Arguments:
 
     data: Endpoint data, treatments encoded R, A, B (and C).
@@ -197,34 +217,68 @@ Value:
 ## assess_regulatory
 
 ```text
-Separate regulatory applicability from statistical calculations
+Assess a selected, versioned regulatory rule with explicit eligibility
 
 Description:
 
-     No currently effective jurisdiction-specific policy has been
-     qualified for this release. Always returns undetermined, retaining
-     the supplied context and reason. Use numeric_abe() and
-     abel_limits() for transparent calculations.
+     Separates statistics, source/rule selection, eligibility,
+     numerical limits and classification. All shipped rules abstain
+     pending official-source and method qualification. Supplying a
+     custom register is a caller attestation of qualification; OpenBE
+     does not verify a document by trusting its metadata.
 
 Usage:
 
      assess_regulatory(
        statistics,
        guideline = NA_character_,
-       endpoint = NA_character_
+       endpoint = NA_character_,
+       rule_id = NULL,
+       jurisdiction = NULL,
+       formulation = NULL,
+       eligibility_confirmed = NA,
+       reference_replicated = NA,
+       reliable_variance = NA,
+       cv_wr = NA_real_,
+       confidence_level = NA_real_,
+       assessment_date = Sys.Date(),
+       rules = regulatory_rules()
      )
-     
+
 Arguments:
 
-statistics: Statistical summary retained for traceability.
+statistics: Single-comparison ratio summary with gmr, lower and upper.
 
-guideline: Guideline source and version, if supplied.
+guideline: Optional legacy source metadata when no rule is selected.
 
-endpoint: Endpoint name, if known.
+endpoint: Endpoint identifier, such as Cmax or AUClast.
+
+ rule_id: Unique registered rule identifier; default abstains.
+
+jurisdiction, formulation: Explicit context matching the rule.
+
+eligibility_confirmed: Explicit analyst confirmation of study-specific
+          applicability, including product-specific exclusions and
+          prespecified SAP.
+
+reference_replicated, reliable_variance: Explicit confirmations for
+          ABEL.
+
+   cv_wr: Reference within-subject CV, required for ABEL.
+
+confidence_level: Stated confidence level; must be 0.90.
+
+assessment_date: Date on which the effective window is evaluated.
+
+   rules: Register from regulatory_rules(), or a caller-qualified
+          register with the same columns. Caller records must retain
+          source hash and dates.
 
 Value:
 
-     A list with classification, guideline, endpoint and reason.
+     Structured five-stage assessment. Unknown context returns
+     REGULATORY_ASSESSMENT_NOT_DETERMINED; criteria results are not
+     approval.
 
 ```
 
@@ -240,7 +294,7 @@ Description:
 Usage:
 
      example_dataset(design = 1, endpoint = c("AUClast", "Cmax"))
-     
+
 Arguments:
 
   design: Integer study design from 1 to 14.
@@ -265,7 +319,7 @@ Description:
 Usage:
 
      numeric_abe(lower, upper, limits = c(0.8, 1.25))
-     
+
 Arguments:
 
 lower, upper: Ratio confidence limits, unrounded.
@@ -292,7 +346,7 @@ Description:
 Usage:
 
      numeric_abel(lower, upper, gmr, cv_wr)
-     
+
 Arguments:
 
 lower, upper: Single ratio confidence limits.
@@ -331,7 +385,7 @@ Usage:
        seed = 20261115,
        nsims = 10000
      )
-     
+
 Arguments:
 
       cv: Assumed within-subject CV (fraction).
@@ -369,7 +423,7 @@ Description:
 Usage:
 
      plot_analysis(result, directory, title, provenance, script)
-     
+
 Arguments:
 
   result: Analysis result from an OpenBE analysis function.
@@ -385,6 +439,28 @@ provenance: Source description and observed/simulated classification.
 Value:
 
      Character vector of generated filenames, invisibly.
+
+```
+
+## regulatory_rules
+
+```text
+Inspect the versioned regulatory rule register
+
+Description:
+
+     No shipped rule is currently qualified. The register records the
+     official source URL, version/effective-date fields and blocked
+     verification explicitly. No rule is enabled by the mere existence
+     of a numerical implementation.
+
+Usage:
+
+     regulatory_rules()
+
+Value:
+
+     Data frame of rule metadata, without a regulatory endorsement.
 
 ```
 
@@ -407,7 +483,7 @@ Usage:
        treatments = c("R", "T"),
        missing = c("error", "omit")
      )
-     
+
 Arguments:
 
     data: Data frame with subject, sequence, period, treatment and PK
@@ -435,10 +511,35 @@ Description:
 Usage:
 
      write_analysis(result, directory)
-     
+
 Arguments:
 
   result: OpenBE analysis result.
+
+directory: Output directory.
+
+Value:
+
+     Output directory, invisibly.
+
+```
+
+## write_nca
+
+```text
+Export a traceable PKNCA result bundle
+
+Description:
+
+     Export a traceable PKNCA result bundle
+
+Usage:
+
+     write_nca(result, directory)
+
+Arguments:
+
+  result: PKNCAresults returned by analyze_nca().
 
 directory: Output directory.
 

@@ -1,7 +1,7 @@
 name: Documentation
 on:
   push:
-    branches: [main, codex/initial-scientific-implementation]
+    branches: [main, codex/initial-scientific-implementation, codex/scientific-hardening-0.1.1]
   pull_request:
   workflow_dispatch:
 permissions:

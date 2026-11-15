@@ -22,7 +22,7 @@ Rscript examples/design_01_2x2_crossover/analysis.R
 Rscript scripts/run_all_examples.R
 Rscript scripts/run_validation.R
 R CMD build .
-R CMD check --no-manual OpenBE_0.1.0.tar.gz
+R CMD check --no-manual OpenBE_0.1.1.tar.gz
 Rscript scripts/build_documentation.R
 ```
 

@@ -1,8 +1,7 @@
-List of 5
+List of 9
  $ classification: chr "REGULATORY_ASSESSMENT_NOT_DETERMINED"
  $ guideline     : chr NA
  $ endpoint      : chr NA
- $ reason        : chr "Current rule applicability and endpoint eligibility are not qualified in this release"
  $ statistics    :'data.frame':	1 obs. of  12 variables:
   ..$ method      : chr "A"
   ..$ gmr         : num 1.16
@@ -16,3 +15,15 @@ List of 5
   ..$ abel_lower  : num 0.712
   ..$ abel_upper  : num 1.4
   ..$ abel_numeric: logi TRUE
+ $ rule          : NULL
+ $ eligibility   :List of 2
+  ..$ determined: logi FALSE
+  ..$ eligible  : logi NA
+ $ limits        : NULL
+ $ stages        :List of 5
+  ..$ statistics    : chr "RECEIVED"
+  ..$ rule_selection: chr "NOT_SELECTED"
+  ..$ eligibility   : chr "NOT_DETERMINED"
+  ..$ limits        : chr "NOT_DETERMINED"
+  ..$ classification: chr "NOT_DETERMINED"
+ $ reason        : chr "Select a qualified versioned rule and establish study-specific eligibility"

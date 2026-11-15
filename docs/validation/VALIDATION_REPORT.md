@@ -2,8 +2,8 @@
 
 Scope: research implementation and targeted numerical verification, not a blanket software/regulatory qualification.
 
-This invocation executed 13 test blocks and 158 passing expectations; failures=0, errors=0, skipped=0.
-All 84 recorded numerical comparisons passed their explicit absolute tolerances.
+This invocation executed 29 test blocks and 267 passing expectations; failures=0, errors=0, skipped=0.
+All 136 recorded numerical comparisons passed their explicit absolute tolerances.
 
 ## Evidence
 
@@ -18,7 +18,7 @@ Design 01: BE estimates, both endpoints, CV, TOST p-values and DF agree with ind
 
 Designs 02–11: Method A GMR, CI and DF agree with an independent subject-centered normal-equation implementation on each design's reference data. Separate within-treatment variance estimates are checked in the test suite using projected residual sums of squares. This supports the selected calculations, not every missingness/covariance/outlier pattern.
 
-Method B: EMA rds01 rounded package example values are reproduced to half the last printed percentage digit. This is shared-engine/reference-example corroboration, not an independent reference implementation. Option 2 is cross-checked against nlme; options 1 and 3 execute and return finite contrasts but do not yet have external DF reference values for every design.
+Method B: an independent Woodbury/profile-REML implementation cross-checks GMR, CI and containment DF for all ten replicate designs. Independent observed-information/delta-method Satterthwaite calculations check three source datasets, including incomplete/unbalanced rds01. Kenward-Roger is checked against the exact complete balanced orthogonal case. General incomplete/unbalanced Kenward-Roger still requires an external qualified reference. EMA rds01 rounded help-example values remain separately identified shared-engine corroboration. Tolerances and observed differences are recorded per metric.
 
 Design 12: independent pooled-t algebra corroborates the equal-variance parallel model. Designs 13–14: balanced random-intercept contrasts match fixed-subject normal equations; period and first-order carryover balance are tested. These custom workflows remain EXPERIMENTAL pending broader external reference qualification, missing-data studies and covariance sensitivity.
 
@@ -26,7 +26,7 @@ NCA: a separately labeled analytical exponential profile checks Cmax, Tmax, AUCl
 
 Planning: conventional output is cross-checked with power.TOST; scaled output is reproducible with the stated seed but is Monte Carlo and not independently qualified.
 
-Boundary tests cover CI touching/outside conventional limits, scaling onset/cap, invalid labels, nonpositive endpoints, missing observations, unequal sequence sizes, insufficient DF and nonestimability. No assertions are disabled and no zero-test run is accepted.
+Regression tests additionally verify contrast-setting invariance, complete session-option restoration, aliased effects despite positive residual DF, source-row exclusions, input fingerprints, explicit BLQ policies, dimension-safe unit conversions, overlapping NCA intervals, actual engine terminal-point membership and fail-closed regulatory rule selection. Boundary tests cover CI limits, scaling onset/cap, invalid labels, nonpositive endpoints, missing observations, unequal sequence sizes, insufficient DF and nonestimability. No assertions are disabled and no zero-test run is accepted.
 
 ## Classification
 
@@ -34,4 +34,4 @@ No complete analytical implementation is labeled VALIDATED. Designs 01–11 are 
 
 ## Regulatory and publication limits
 
-Current official guidance retrieval was blocked by network policy. All OpenBE regulatory classifications remain REGULATORY_ASSESSMENT_NOT_DETERMINED. Numerical ABE/legacy ABEL flags must not be interpreted as current regulatory eligibility. Local tests and rendering do not establish remote GitHub Actions success or GitHub Pages deployment.
+Current official guidance retrieval was blocked by network policy. All shipped regulatory rules remain unqualified and abstain. A caller-attested custom registry can exercise the five-stage assessment pipeline; synthetic test registries are not official policy qualification. Numerical ABE/legacy ABEL flags must not be interpreted as current regulatory eligibility. Local tests and rendering do not establish remote GitHub Actions success or GitHub Pages deployment.

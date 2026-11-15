@@ -6,4 +6,4 @@ for(f in files) {
  doc<-gsub(".\b","",doc)
  text<-c(text,paste0("## ",sub("[.]Rd$","",basename(f))),"","```text",doc,"```","")
 }
-writeLines(text,"docs/api-reference.md")
+writeLines(sub("[[:blank:]]+$", "", text),"docs/api-reference.md")

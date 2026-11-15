@@ -49,3 +49,13 @@ Study design, estimand, variance structure and missingness policy must be define
 before selecting a method. Numerical interval containment and legacy ABEL limits
 are separate from regulatory eligibility. See [regulatory framework](regulatory-framework.md)
 and [scientific validation](validation/VALIDATION_REPORT.md).
+
+## Robustness and audit trail (0.1.1)
+
+Analysis calls use explicit treatment coding inside a protected option scope;
+user contrast settings cannot alter coefficient extraction. Primary models with
+aliased effects are rejected even when residual DF is positive. Every result
+includes source-population counts, explicit exclusions, absent planned records,
+input SHA-256, model specification, DF method and captured fit warnings.
+See [the technical report](technical/HARDENING_0.1.1.md) for independent REML/DF
+checks, audit exports and remaining qualification limits.

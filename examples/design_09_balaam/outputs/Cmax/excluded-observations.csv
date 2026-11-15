@@ -1,0 +1,2 @@
+"subject","sequence","period","treatment","source_row","reason"
+111,"RT",2,"T",222,"Missing PK; explicit omission"

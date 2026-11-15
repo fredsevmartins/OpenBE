@@ -1,0 +1,4 @@
+"rule_id","source_url","checked_utc","status","sha256","reason"
+"ICH_M13A_ABE","https://www.ema.europa.eu/en/ich-m13a-bioequivalence-immediate-release-solid-oral-dosage-forms-scientific-guideline","2026-11-15 22:03:16 UTC","RETRIEVAL_BLOCKED",NA,"cannot open URL 'https://www.ema.europa.eu/en/ich-m13a-bioequivalence-immediate-release-solid-oral-dosage-forms-scientific-guideline'"
+"EMA_LEGACY_ABEL","https://www.ema.europa.eu/en/investigation-bioequivalence-scientific-guideline","2026-11-15 22:03:16 UTC","RETRIEVAL_BLOCKED",NA,"cannot open URL 'https://www.ema.europa.eu/en/investigation-bioequivalence-scientific-guideline'"
+"FDA_RSABE","https://www.fda.gov/drugs/guidances-drugs","2026-11-15 22:03:16 UTC","RETRIEVAL_BLOCKED",NA,"cannot open URL 'https://www.fda.gov/drugs/guidances-drugs'"

@@ -1,4 +1,4 @@
-# Initial implementation report
+# Implementation report — version 0.1.1
 
 Repository: https://github.com/fredsevmartins/OpenBE
 
@@ -14,8 +14,8 @@ The original development history is preserved; no force push was used.
 - Designs 01–14 executed; both AUClast and Cmax for design 01. Methods A/B for
   02–11; custom parallel/Williams remain experimental.
 - Observed Theoph NCA and PowerTOST planning/sensitivity examples.
-- 13 test blocks, 158 passing expectations; zero failures/errors/skips.
-- 84 expected/observed numerical comparisons passed explicit tolerances.
+- 29 test blocks, 267 passing expectations; zero failures/errors/skips.
+- 136 expected/observed numerical comparisons passed explicit tolerances.
 - 95 PNG figures at 300 dpi and 95 vector PDFs; 16 English executable tutorials
   rendered. Initial 28-page Quarto site had zero missing local links/images.
 - R CMD check --no-manual: Status OK. Non-root bootstrap tested in the normal
@@ -81,7 +81,7 @@ Rscript examples/design_01_2x2_crossover/analysis.R
 Rscript scripts/run_all_examples.R
 Rscript scripts/run_validation.R
 R CMD build .
-R CMD check --no-manual OpenBE_0.1.0.tar.gz
+R CMD check --no-manual OpenBE_0.1.1.tar.gz
 Rscript scripts/build_documentation.R
 ```
 
@@ -97,3 +97,16 @@ The GitHub API currently returns CONNECT HTTP 403; this prevents verifying
 API authentication or creating a PR through gh. A Pages-compatible build and
 Actions deployment workflow exist, but remote CI execution and Pages deployment
 have not been verified. No deployed URL is claimed.
+
+## Version 0.1.1
+
+Session-option isolation, explicit contrasts, early rank checks, population/model
+audit exports, independent REML/DF comparisons, NCA policies/unit conversions and
+terminal-point exports, versioned regulatory gates and cross-platform/fresh-
+restore CI are implemented. Details: [hardening report](HARDENING_0.1.1.md).
+
+The installed-package check passes with Status OK. Windows/macOS/other-R CI
+results remain unverified. The fresh CRAN restore stops at its network probe;
+official regulatory sources remain inaccessible. No built-in policy is
+qualified, and incomplete/unbalanced Kenward-Roger still needs a qualified
+external reference. These limits are not marked as passing tests.
