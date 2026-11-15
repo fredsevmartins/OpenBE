@@ -2,9 +2,10 @@
 
 Repository: https://github.com/fredsevmartins/OpenBE
 
-Development branch: `codex/initial-scientific-implementation`; target: `main`.
-The initially empty remote required a small project-governance baseline for main;
-implementation commits are kept on the dedicated branch. No automatic merge.
+The complete implementation is published on the default `main` branch. It was
+developed on `codex/initial-scientific-implementation`, then promoted by a
+fast-forward update after the user explicitly authorized publication to `main`.
+The original development history is preserved; no force push was used.
 
 ## Delivered and verified
 

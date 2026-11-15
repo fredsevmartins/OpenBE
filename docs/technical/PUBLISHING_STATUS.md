@@ -1,41 +1,27 @@
 # Publication status
 
-The following branches were successfully pushed to the existing repository:
+The complete scientific implementation is published on the default `main`
+branch of https://github.com/fredsevmartins/OpenBE. It includes the R package,
+source datasets, 14 design examples, results, figures, documentation, tests and
+GitHub Actions workflows. Installation instructions use `main`.
 
-- `main`: initial project-governance baseline only (the remote was initially empty).
-- `codex/initial-scientific-implementation`: completed research implementation,
-  examples, numerical evidence, figures, tutorials and CI configuration.
+The implementation was developed on `codex/initial-scientific-implementation`.
+After the user explicitly authorized making all files visible on the main
+repository page, `main` was advanced to the implementation with a fast-forward
+update. The original commits remain in history; no force push was used.
 
-Repository: https://github.com/fredsevmartins/OpenBE
+## Pull request history
 
-No merge has been performed.
-
-## Pull request blocker
-
-The actual `gh pr create` attempt returned:
+The earlier `gh pr create` attempt returned:
 
 ```text
 Post "https://api.github.com/graphql": Forbidden
 ```
 
-Independent CONNECT attempts to api.github.com also returned HTTP 403 under
-the current enforced network policy. Consequently **no pull request URL is
-available and no PR creation is claimed**. Git access/push success does not
-establish GitHub API authentication; the 403 prevents an authentication diagnosis.
-No new token or credential value has been requested.
-
-The completed PR title/body is preserved in [PULL_REQUEST.md](PULL_REQUEST.md).
-After API access is available, create the PR without modifying the implementation:
-
-```sh
-gh pr create --repo fredsevmartins/OpenBE --base main \
-  --head codex/initial-scientific-implementation \
-  --title 'Implement reproducible OpenBE scientific workflows and validation' \
-  --body-file docs/technical/PULL_REQUEST.md
-```
-
-Alternatively, the following is a **comparison/create-PR page, not an existing PR**:
-https://github.com/fredsevmartins/OpenBE/compare/main...codex/initial-scientific-implementation?expand=1
+No PR was created. The user subsequently authorized direct publication to `main`,
+so that earlier PR is no longer needed to make the implementation available.
+The original proposed description is retained in [PULL_REQUEST.md](PULL_REQUEST.md)
+as historical documentation. Git push success does not establish API access.
 
 ## CI and website
 

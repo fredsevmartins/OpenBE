@@ -1,18 +1,18 @@
 # Getting started
 
 Requires R >=4.1. Tested here with R 4.5.0. Install released CRAN dependencies
-and OpenBE from the development branch until the initial PR is merged:
+and OpenBE from the default `main` branch:
 
 ```r
 install.packages("remotes")
-remotes::install_github("fredsevmartins/OpenBE", ref="codex/initial-scientific-implementation")
+remotes::install_github("fredsevmartins/OpenBE")
 library(OpenBE)
 result <- analyze_2x2(example_dataset(1, "AUClast"))
 result$summary
 result$regulatory$classification
 ```
 
-For development, clone the same repository, check out the development branch
+For development, clone the same repository, check out `main`
 and run from its root:
 
 ```sh

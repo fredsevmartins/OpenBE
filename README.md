@@ -51,13 +51,12 @@ Williams designs involve distinct treatments and are not replicate BE designs.
 
 ## Installation
 
-Requires R >=4.1; tested with **R 4.5.0**. Until the initial implementation is
-merged, install the dedicated development branch:
+Requires R >=4.1; tested with **R 4.5.0**. The complete implementation is
+available on the default `main` branch:
 
 ```r
 install.packages("remotes")
-remotes::install_github("fredsevmartins/OpenBE",
-                       ref="codex/initial-scientific-implementation")
+remotes::install_github("fredsevmartins/OpenBE")
 ```
 
 For development with the exact package lock:
@@ -65,7 +64,7 @@ For development with the exact package lock:
 ```sh
 git clone https://github.com/fredsevmartins/OpenBE.git
 cd OpenBE
-git checkout codex/initial-scientific-implementation
+git checkout main
 Rscript scripts/install_dependencies.R
 R CMD INSTALL .
 ```

@@ -1,3 +1,10 @@
+# Historical pull request description
+
+This proposed PR could not be created because GitHub API access was forbidden.
+The user subsequently authorized publication to `main`, which now contains the
+implementation. The text below records the original review summary; no initial
+implementation PR is pending.
+
 OpenBE now provides an installable R research toolkit with 14 executed design workflows, traceable datasets and executable English tutorials. Statistical calculations remain separate from regulatory eligibility; unresolved current-rule applicability returns `REGULATORY_ASSESSMENT_NOT_DETERMINED`.
 
 ### Implemented capabilities
