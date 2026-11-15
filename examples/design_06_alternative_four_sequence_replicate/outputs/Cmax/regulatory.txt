@@ -1,0 +1,18 @@
+List of 5
+ $ classification: chr "REGULATORY_ASSESSMENT_NOT_DETERMINED"
+ $ guideline     : chr NA
+ $ endpoint      : chr NA
+ $ reason        : chr "Current rule applicability and endpoint eligibility are not qualified in this release"
+ $ statistics    :'data.frame':	1 obs. of  12 variables:
+  ..$ method      : chr "A"
+  ..$ gmr         : num 0.979
+  ..$ lower       : num 0.872
+  ..$ upper       : num 1.1
+  ..$ df          : int 113
+  ..$ cv_wR       : num 0.542
+  ..$ cv_wT       : num 0.338
+  ..$ swR         : num 0.508
+  ..$ abe_numeric : logi TRUE
+  ..$ abel_lower  : num 0.698
+  ..$ abel_upper  : num 1.43
+  ..$ abel_numeric: logi TRUE

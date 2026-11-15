@@ -1,0 +1,18 @@
+List of 5
+ $ classification: chr "REGULATORY_ASSESSMENT_NOT_DETERMINED"
+ $ guideline     : chr NA
+ $ endpoint      : chr NA
+ $ reason        : chr "Current rule applicability and endpoint eligibility are not qualified in this release"
+ $ statistics    :'data.frame':	2 obs. of  12 variables:
+  ..$ comparison  : chr [1:2] "A - R" "B - R"
+  ..$ gmr         : num [1:2] 0.988 1.033
+  ..$ lower       : num [1:2] 0.916 0.959
+  ..$ upper       : num [1:2] 1.06 1.11
+  ..$ log_estimate: num [1:2] -0.0125 0.0329
+  ..$ se          : num [1:2] 0.0451 0.0451
+  ..$ df          : num [1:2] 68 68
+  ..$ p_lower     : num [1:2] 7.20e-06 1.51e-07
+  ..$ p_upper     : num [1:2] 8.85e-07 3.67e-05
+  ..$ alpha       : num [1:2] 0.05 0.05
+  ..$ p_tost_holm : num [1:2] 1.44e-05 3.67e-05
+  ..$ abe_numeric : logi [1:2] TRUE TRUE
