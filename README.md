@@ -1,5 +1,5 @@
 # OpenBE — Open-Source Bioequivalence Analysis
-![Uploading image.png…]()
+
 
 OpenBE is an R research toolkit for traceable bioequivalence analysis. It uses
 established statistical engines, provides executable design examples, and
